@@ -7,6 +7,11 @@ import (
 
 // writes a byte slice containing the string "Hello from SnippetBox" as the response body
 func home(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/" {
+		http.NotFound(w, r)
+		return
+	}
+
 	w.Write([]byte("Hello from SnippetBox"))
 }
 

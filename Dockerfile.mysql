@@ -1,0 +1,8 @@
+FROM mysql:8.0
+
+# Copy your SQL initialization scripts to the appropriate directory
+COPY ./docker/init-db /docker-entrypoint-initdb.d/
+
+# Change ownership and permissions
+RUN chown -R mysql:mysql /docker-entrypoint-initdb.d/ && \
+    chmod 644 /docker-entrypoint-initdb.d/*.sql

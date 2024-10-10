@@ -18,7 +18,9 @@ services:
       - app-network
 
   db:
-    image: mysql:8.0
+    build:
+      context: .
+      dockerfile: Dockerfile.mysql  # Use the custom MySQL Dockerfile
     container_name: mysql_db
     restart: always
     environment:
@@ -31,6 +33,15 @@ services:
       - app-network
     volumes:
       - db_data:/var/lib/mysql
+
+  adminer:
+    image: adminer
+    container_name: adminer
+    restart: always
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
 
 networks:
   app-network:

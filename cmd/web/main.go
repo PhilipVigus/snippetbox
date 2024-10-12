@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"snippetbox.philvigus.com/internal/models"
 	"time"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -14,6 +15,7 @@ import (
 type application struct {
 	errorLog *log.Logger
 	infoLog  *log.Logger
+	snippets *models.SnippetModel
 }
 
 func main() {
@@ -25,7 +27,7 @@ func main() {
 	infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
 	errorLog := log.New(os.Stderr, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
 
-	var db *sql.DB // Declare db variable outside the loop
+	var db *sql.DB
 
 	for i := 0; i < 50; i++ {
 		var err error
@@ -54,6 +56,7 @@ func main() {
 	app := &application{
 		errorLog: errorLog,
 		infoLog:  infoLog,
+		snippets: &models.SnippetModel{DB: db},
 	}
 
 	// create a pointer to a new http.Server struct

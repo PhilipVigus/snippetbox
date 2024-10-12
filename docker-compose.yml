@@ -33,6 +33,7 @@ services:
       - app-network
     volumes:
       - db_data:/var/lib/mysql
+      - ./docker/custom.cnf:/etc/mysql/conf.d/my.cnf  # Mount the custom
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 10s

@@ -58,7 +58,6 @@ func main() {
 	templateCache, err := newTemplateCache()
 	if err != nil {
 		errorLog.Fatal(err)
-
 	}
 
 	app := &application{
